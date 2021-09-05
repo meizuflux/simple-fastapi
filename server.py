@@ -8,13 +8,10 @@ from pydantic import BaseModel
 app = FastAPI(
     title="Items API",
     description=(
-        """
-A simple API written to showcase FastAPI.
-
-View routes, models, and responses below.
-        """
+        "A simple API written to showcase FastAPI."
+        "View routes, models, and responses below."
     ),
-    version="0.9",
+    version="1.0",
     contact={
         "name": "meizuflux",
         "url": "https://meizuflux.com",
