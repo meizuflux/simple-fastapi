@@ -132,30 +132,13 @@ async def create_item(item_id, item: Item, request: Request, response: Response)
         return JSONResponse({"message": f"Item with id '{item_id}' already exists."}, status_code=409)
 
     items[item_id] = jsonable_encoder(item)
-    response.headers["Location"] = str(request.base_url) + "items/" + item_id
+    response.headers["Location"] = f'{str(request.base_url)}items/{item_id}'
 
     return item
 
-@app.delete(
-    "/items/{item_id}",
-    tags=["Items"],
-    summary="Delete an item",
-    status_code=204,
-    responses={
-        404: {
-            "model": Message,
-            "description": "No item was found to delete.",
-            "content": {
-                "application/json": {
-                    "example": {"message": f"No item with id 'soda' found to delete."}
-                }
-            },
-        },
-        204: {
+@app.delete("/items/{item_id}", tags=["Items"], summary="Delete an item", status_code=204, responses={404: {"model": Message, "description": "No item was found to delete.", "content": {"application/json": {"example": {"message": "No item with id 'soda' found to delete."}}}}, 204: {
             "description": "Item deleted successfully",
-        }
-    }
-)
+        }})
 async def delete_item(item_id: str):
     """
     Delete an item by id
